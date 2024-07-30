@@ -1,6 +1,3 @@
-// Keyboard driver implementation for x86_64 architecture
-// Requires a PS/2 keyboard
-
 use x86_64::instructions::port::Port;
 
 // PS/2 keyboard constants
@@ -32,10 +29,7 @@ impl Keyboard {
     pub fn read_key(&mut self) -> Option<u8> {
         if self.is_key_pressed() {
             let scancode = self.data_port.read();
-
-            // Send an ACK to the keyboard controller
             self.data_port.write(PS2_ACK);
-
             Some(scancode)
         } else {
             None

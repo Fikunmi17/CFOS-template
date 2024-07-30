@@ -1,33 +1,29 @@
-// TODO: Define the Gpu trait that will be implemented by all GPU drivers
-trait Gpu {
-    // TODO: Define functions for interacting with the GPU, such as initializing it, rendering graphics, etc.
+// Define the Gpu trait
+pub trait Gpu {
+    // Define functions for interacting with the GPU
 }
 
-// TODO: Implement the Gpu trait for a specific GPU driver, such as an Nvidia or AMD graphics card driver.
-struct NvidiaGpu {}
+// Implement the Gpu trait for Nvidia GPU
+pub struct NvidiaGpu;
 
 impl Gpu for NvidiaGpu {
-    // TODO: Implement the functions defined in the Gpu trait for Nvidia GPUs
+    // Implement GPU-specific functions here
 }
 
-struct AmdGpu {}
+// Implement the Gpu trait for AMD GPU
+pub struct AmdGpu;
 
 impl Gpu for AmdGpu {
-    // TODO: Implement the functions defined in the Gpu trait for AMD GPUs
+    // Implement GPU-specific functions here
 }
 
-// TODO: Define a function for detecting the installed GPU and selecting the appropriate driver
-fn detect_gpu() -> Box<dyn Gpu> {
-    // TODO: Implement a method for detecting the installed GPU and selecting the appropriate driver.
-    // For example, check the vendor ID and device ID to determine if it's an Nvidia or AMD GPU, or
-    // query the system BIOS to determine the installed GPU.
-    // Then, return a Box<dyn Gpu> that contains the appropriate GPU driver implementation.
+// Function to detect GPU
+pub fn detect_gpu() -> Box<dyn Gpu> {
+    // Dummy implementation for example
+    Box::new(NvidiaGpu)
 }
 
-// TODO: Define a function for initializing the GPU and returning a handle to the driver
-fn init_gpu() -> Box<dyn Gpu> {
-    // TODO: Implement a method for initializing the GPU and returning a handle to the driver.
-    // This might involve querying the PCI bus to detect installed GPUs, initializing the video BIOS,
-    // setting up graphics modes, etc. Then, return a Box<dyn Gpu> that contains the appropriate GPU
-    // driver implementation.
+// Function to initialize GPU
+pub fn init_gpu() -> Box<dyn Gpu> {
+    detect_gpu() // Or other initialization logic
 }

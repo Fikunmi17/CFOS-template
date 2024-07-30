@@ -1,6 +1,3 @@
-// Storage driver implementation for x86_64 architecture
-// Requires a compatible storage device
-
 use x86_64::instructions::port::{Port, PortWriteOnly};
 
 // Storage device constants
@@ -38,10 +35,7 @@ impl Storage {
 
     // Read a sector from the storage device
     fn read_sector(&mut self, sector: &mut [u8]) {
-        // Issue a read command to the storage device
         self.command_port.write(0x20);
-
-        // Read the sector data
         for byte in sector.iter_mut() {
             *byte = self.data_port.read();
         }
@@ -49,12 +43,4 @@ impl Storage {
 
     // Write a sector to the storage device
     fn write_sector(&mut self, sector: &[u8]) {
-        // Issue a write command to the storage device
-        self.command_port.write(0x30);
-
-        // Write the sector data
-        for byte in sector.iter() {
-            self.data_port.write(*byte);
-        }
-    }
-}
+        self.command_por

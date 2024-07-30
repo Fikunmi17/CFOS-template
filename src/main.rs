@@ -1,58 +1,78 @@
-// arch
+// Importing modules and traits
 use arch::{armv7, mips, x86_64};
-
-// boot
 use boot::{bios, grub, uefi};
-
-// core
 use core::{config, error, init};
-
-// crypto
 use crypto::{cipher, hash, hmac};
-
-// db
 use db::{postgres, redis, sqlite};
-
-// drivers
-use drivers::{gpu, keyboard, network, storage};
-
-// fs
+use drivers::{Gpu, Keyboard, Network, Storage};
 use fs::{ext2, fat, nfts, vfs};
-
-// gui
 use gui::{
     button, components, event, images, label, layouts, menu, textbox, theme, themes, utils, widget,
     window,
 };
 use gui::components::{button as button_component, label as label_component, menu as menu_component, textbox as textbox_component};
-
-// kernel
 use kernel::{interrupts, memory, scheduler, syscall};
-
-// lib
 use lib::{collections, io, math, sync};
-
-// mm
 use mm::{allocator, paging, virtual};
-
-// net
 use net::{dns, ip, tcp, udp};
-
-// process
 use process::{ipc, process, thread};
-
-// security
 use security::{auth, firewall, tls};
-
-// storage
 use storage::{block, inode, journal};
-
-// tests
 use tests::{keyboard_test, network_test, unit_test};
-
-// util
 use util::{config, logging, time};
 
-fn main() {
-    // your code here
+// Implementations for the traits
+pub struct MyGpu;
+impl Gpu for MyGpu {
+    // Implement GPU-specific methods here
 }
+
+pub struct MyKeyboard;
+impl Keyboard for MyKeyboard {
+    // Implement Keyboard-specific methods here
+}
+
+pub struct MyNetwork;
+impl Network for MyNetwork {
+    // Implement Network-specific methods here
+}
+
+pub struct MyStorage;
+impl Storage for MyStorage {
+    // Implement Storage-specific methods here
+}
+
+// Import necessary modules
+use crate::drivers::driver_manager::DriverManager;
+
+fn main() {
+    let mut driver_manager = DriverManager::new();
+
+    // Initialize drivers
+    driver_manager.init_gpu();
+    driver_manager.init_keyboard();
+    driver_manager.init_network();
+    driver_manager.init_storage();
+
+    // Example usage
+    if let Some(gpu) = driver_manager.get_gpu() {
+        // Call GPU-specific methods
+    }
+
+    if let Some(keyboard) = driver_manager.get_keyboard() {
+        if let Some(key) = keyboard.read_key() {
+            // Process keyboard input
+        }
+    }
+
+    if let Some(network) = driver_manager.get_network() {
+        // Network operations
+    }
+
+    if let Some(storage) = driver_manager.get_storage() {
+        // Storage operations
+    }
+
+    // Your main loop or other operations here
+}
+

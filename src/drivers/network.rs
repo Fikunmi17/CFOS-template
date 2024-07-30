@@ -1,6 +1,3 @@
-// Network driver implementation for x86_64 architecture
-// Requires a compatible network interface card (NIC)
-
 use x86_64::instructions::port::{Port, PortWriteOnly};
 
 // Network card constants
